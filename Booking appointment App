@@ -1,0 +1,26 @@
+// Get the submit button element
+var submitButton = document.getElementById("submit-button");
+
+// Add an event listener to the submit button
+submitButton.addEventListener("click", function() {
+  // Get the user details from the input fields
+  var name = document.getElementById("name-input").value;
+  var email = document.getElementById("email-input").value;
+  var address = document.getElementById("address-input").value;
+
+  // Create an object to store the user details
+  var userDetails = {
+    name: name,
+    email: email,
+    address: address
+  };
+
+  // Convert the object to a JSON string
+  var userDetailsJSON = JSON.stringify(userDetails);
+
+  // Store the user details in the local storage
+  localStorage.setItem("userDetails", userDetailsJSON);
+
+  // Display a success message
+  alert("User details have been stored in the local storage.");
+});

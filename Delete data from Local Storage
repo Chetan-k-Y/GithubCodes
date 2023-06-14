@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Details</title>
+</head>
+<body>
+  <h1>User Details</h1>
+  <div id="userList"></div>
+  <script>
+    // Retrieve user details from local storage
+    const storedUsers = localStorage.getItem('userDetails');
+    const users = storedUsers ? JSON.parse(storedUsers) : [];
+
+    // Function to display user details in the UI
+    function displayUserDetails() {
+      const userList = document.getElementById('userList');
+      userList.innerHTML = '';
+      users.forEach(user => {
+        const userDiv = document.createElement('div');
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.addEventListener('click', () => deleteUser(user));
+        userDiv.innerText = `Name: ${user.name}, Email: ${user.email}`;
+        userDiv.appendChild(deleteButton);
+        userList.appendChild(userDiv);
+      });
+    }
+
+    // Function to add a new user
+    function addUser(name, email) {
+      const user = { name, email };
+      users.push(user);
+      updateLocalStorage();
+      displayUserDetails();
+    }
+
+    // Function to delete a user
+    function deleteUser(user) {
+      const index = users.indexOf(user);
+      if (index > -1) {
+        users.splice(index, 1);
+        updateLocalStorage();
+        displayUserDetails();
+      }
+    }
+
+    // Function to update local storage with the latest user details
+    function updateLocalStorage() {
+      localStorage.setItem('userDetails', JSON.stringify(users));
+    }
+
+    // Example usage
+    addUser('John Doe', 'john@example.com');
+    addUser('Jane Smith', 'jane@example.com');
+
+    // Initial display of user details
+    displayUserDetails();
+  </script>
+</body>
+</html>

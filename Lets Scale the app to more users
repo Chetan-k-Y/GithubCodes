@@ -1,0 +1,20 @@
+// Function to store user details in local storage
+function storeUserDetails(details) {
+  // Retrieve existing user details (if any) from local storage
+  let storedDetails = JSON.parse(localStorage.getItem('userDetails')) || [];
+
+  // Add the new user details to the existing ones
+  storedDetails.push(details);
+
+  // Store the updated user details back in local storage
+  localStorage.setItem('userDetails', JSON.stringify(storedDetails));
+}
+
+// Example usage
+const user = {
+  name: 'John Doe',
+  email: 'john@example.com',
+  age: 30
+};
+
+storeUserDetails(user);
